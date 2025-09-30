@@ -9,16 +9,23 @@ function MessageForm() {
     body: ''
   });
   const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:3000/message', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    });
-    const data = await res.json();
-    setResponse(data);
+    setLoading(true);
+    setResponse(null);
+    try {
+      const res = await fetch('http://localhost:3000/message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await res.json();
+      setResponse(data);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -28,7 +35,15 @@ function MessageForm() {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Email Assistant</h1>
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Email Assistant</h1>
+          <a
+            href="/messages.html"
+            className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+          >
+            View History
+          </a>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h2 className="text-xl font-bold text-gray-900 mb-6">Compose Message</h2>
@@ -72,16 +87,24 @@ function MessageForm() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium"
+                disabled={loading}
+                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium disabled:bg-blue-400 disabled:cursor-not-allowed"
               >
-                Send to Assistant
+                {loading ? 'Sending to Assistant…' : 'Send to Assistant'}
               </button>
             </form>
           </div>
 
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h2 className="text-xl font-bold text-gray-900 mb-6">Assistant Response</h2>
-            {response ? (
+            {loading ? (
+              <div className="flex items-center justify-center h-64">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                  <p className="text-gray-600">Processing message...</p>
+                </div>
+              </div>
+            ) : response ? (
               <div className="prose prose-sm max-w-none">
                 <div className="text-gray-700 whitespace-pre-wrap leading-relaxed">
                   {response.response}
