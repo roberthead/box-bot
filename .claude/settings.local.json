@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -X POST http://localhost:3000/message -H \"Content-Type: application/json\" -d '{\"\"from\"\":\"\"person@place\"\",\"\"sent_at\"\":\"\"2025-09-29T10:00:00Z\"\",\"\"subject\"\":\"\"a subject line\"\",\"\"body\"\":\"\"the content of the message\"\"}')",
+      "Bash(lsof:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
