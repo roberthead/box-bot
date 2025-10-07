@@ -78,28 +78,41 @@ function MessageHistory() {
                     <h3 className="text-lg font-semibold text-gray-900 mb-4">Original Message</h3>
                     <div className="space-y-2 text-sm">
                       <div>
-                        <span className="font-medium text-gray-700">From:</span>
-                        <span className="text-gray-600 ml-2">{msg.from_email}</span>
+                        <span className="font-medium text-gray-700">From: </span>
+                        <span className="text-gray-600">{msg.from_email || 'N/A'}</span>
                       </div>
                       <div>
-                        <span className="font-medium text-gray-700">Sent:</span>
-                        <span className="text-gray-600 ml-2">{msg.sent_at}</span>
+                        <span className="font-medium text-gray-700">Sent: </span>
+                        <span className="text-gray-600">{msg.sent_at ? new Date(msg.sent_at).toLocaleString() : 'N/A'}</span>
                       </div>
                       <div>
-                        <span className="font-medium text-gray-700">Subject:</span>
-                        <span className="text-gray-600 ml-2">{msg.subject}</span>
+                        <span className="font-medium text-gray-700">Subject: </span>
+                        <span className="text-gray-600">{msg.subject || 'N/A'}</span>
                       </div>
                       <div className="mt-4">
                         <span className="font-medium text-gray-700">Body:</span>
-                        <p className="text-gray-600 mt-1 whitespace-pre-wrap">{msg.body}</p>
+                        <p className="text-gray-600 mt-1 whitespace-pre-wrap">{msg.body || 'N/A'}</p>
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Assistant Response</h3>
-                    <div className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
-                      {msg.claude_response}
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                      Assistant Response ({msg.agent_name})
+                    </h3>
+                    <div className="space-y-3 text-sm">
+                      <div>
+                        <span className="font-medium text-gray-700">Request:</span>
+                        <p className="text-gray-600 mt-1 whitespace-pre-wrap text-xs bg-gray-50 p-2 rounded">
+                          {msg.request}
+                        </p>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700">Response:</span>
+                        <p className="text-gray-700 mt-1 whitespace-pre-wrap leading-relaxed">
+                          {msg.response}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>

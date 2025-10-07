@@ -7,7 +7,15 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(curl -X POST http://localhost:3000/message -H \"Content-Type: application/json\" -d '{\"\"from\"\":\"\"test@example.com\"\",\"\"sent_at\"\":\"\"2025-09-29T10:00:00Z\"\",\"\"subject\"\":\"\"Test\"\",\"\"body\"\":\"\"Hello\"\"}')",
-      "Bash(psql:*)"
+      "Bash(psql:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(npm install:*)",
+      "Bash(npm test)",
+      "Bash(echo $DATABASE_URL)",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "Bash(git rm:*)"
     ],
     "deny": [],
     "ask": []
